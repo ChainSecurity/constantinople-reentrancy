@@ -1,36 +1,30 @@
 pragma solidity ^0.5.0;
 
 contract PaymentSharer {
-  mapping(uint => uint) splits;
-  mapping(uint => uint) deposits;
-  mapping(uint => address payable) first;
-  mapping(uint => address payable) second;
+  uint split;
+  uint deposits;
+  address payable first;
+  address payable second;
 
-  function init(uint id, address payable _first, address payable _second) public {
-    require(first[id] == address(0) && second[id] == address(0));
-    require(first[id] == address(0) && second[id] == address(0));
-    first[id] = _first;
-    second[id] = _second;
+  function PaymentSharer(address payable _first, address payable _second) public {
+    first = _first;
+    second = _second;
   }
 
-  function deposit(uint id) public payable {
-    deposits[id] += msg.value;
+  function deposit() public payable {
+    deposits += msg.value;
   }
 
-  function updateSplit(uint id, uint split) public {
-    require(split <= 100);
-    splits[id] = split;
+  function updateSplit(uint _split) public {
+    require(_split <= 100);
+    split = _split;
   }
 
-  function splitFunds(uint id) public {
-    // TODO: Checks signatures that both parties agree with this split
+  function splitFunds() public {
+    // TODO: Checks signatures passed in that both parties agree with this split
 
     // Split
-    address payable a = first[id];
-    address payable b = second[id];
-    uint depo = deposits[id];
-
-    a.transfer(depo * splits[id] / 100);
-    b.transfer(depo * (100 - splits[id]) / 100);
+    a.transfer(deposits * split / 100);
+    b.transfer(deposits * (100 - split) / 100);
   }
 }

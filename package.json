@@ -1,0 +1,22 @@
+{
+  "name": "constantinople-reentrancy",
+  "version": "0.0.1",
+  "description": "Reentrancy demo for Constantinople Hardfork",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "bn.js": "^4.11.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "truffle test"
+  },
+  "keywords": [
+    "ethereum",
+    "security",
+    "constantinople"
+  ],
+  "author": "ChainSecurity",
+  "license": "ISC"
+}

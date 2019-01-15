@@ -23,12 +23,14 @@ contract PaymentSharer {
   }
 
   function splitFunds(uint id) public {
-    // TODO: Checks signatures that both parties agree with this split
+    // Here would be: 
+    // Signatures that both parties agree with this split
 
     // Split
     address payable a = first[id];
     address payable b = second[id];
     uint depo = deposits[id];
+    deposits[id] = 0;
 
     a.transfer(depo * splits[id] / 100);
     b.transfer(depo * (100 - splits[id]) / 100);

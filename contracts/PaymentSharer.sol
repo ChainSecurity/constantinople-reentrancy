@@ -24,7 +24,7 @@ contract PaymentSharer {
     // TODO: Checks signatures passed in that both parties agree with this split
 
     // Split
-    a.transfer(deposits * split / 100);
-    b.transfer(deposits * (100 - split) / 100);
+    first.transfer(deposits * split / 100);
+    second.transfer(deposits * (100 - split) / 100);
   }
 }

@@ -18,5 +18,6 @@
     "constantinople"
   ],
   "author": "ChainSecurity",
+  "repository": "https://github.com/ChainSecurity/constantinople-reentrancy.git",
   "license": "ISC"
 }

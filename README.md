@@ -15,6 +15,17 @@
 * Run ganache: `ganache-cli --hardfork=byzantium`
 * Run (failing) tests: `truffle test`
 
+## Demonstration of Constantinople with EIP 1283 and the reentrancy vulnerability removed
+
+### Install
+
+* Install dependencies: `npm i`
+* Install ganache@eip1283: `npm i -g ganache-cli@eip1283`
+
+### To test the reentrancy vulnerability no longer exists
+
+* Run ganache: `ganache-cli --hardfork=constantinople-1283-removed`
+* Run (failing) tests: `truffle test`
 
 ### Contact
 
